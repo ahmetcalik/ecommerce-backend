@@ -8,7 +8,7 @@
 ![SonarQube Coverage](https://img.shields.io/badge/coverage-90%25+-brightgreen)
 ![SonarQube Quality Gate](https://img.shields.io/badge/quality%20gate-passed-green)
 
-Bu proje, modern ve ölçeklenebilir bir e-ticaret platformu için geliştirilmiş, uçtan uca (end-to-end) ve "production-ready" prensipleriyle hazırlanmış bir backend sistemidir.
+Bu proje, modern ve ölçeklenebilir bir e-ticaret platformu için geliştirilmiş, uçtan uca (end-to-end) ve "production-ready" prensipleriyle hazırlanmış bir backend sistemidir. Proje, sadece koddan ibaret olmayıp, kullanıma hazır bir **Postman koleksiyonu** ve başlangıç verilerini içeren bir **veritabanı script'i** ile birlikte sunularak, geliştirici deneyimini (Developer Experience) en üst düzeye çıkarmayı hedefler.
 
 ---
 
@@ -43,11 +43,14 @@ graph TD
 
 ### 🚀 Öne Çıkan Özellikler ve İşlevsellik
 
+- **🧑‍💻 Kullanıma Hazır Geliştirici Deneyimi (Developer Experience):**
+  - **Postman Koleksiyonu:** Tüm API endpoint'lerini içeren, anında test etmeye olanak tanıyan hazır bir koleksiyon (`postman/ecommerce-collection.json`).
+  - **Başlangıç Veritabanı Script'i:** Projeyi anlamlı verilerle (ürünler, kategoriler, kullanıcılar) dolduran, `docker-compose up` sonrası çalıştırılabilen bir SQL dosyası (`database/initial_data.sql`).
+
 - **🔐 Güvenlik ve Kullanıcı Yönetimi:** JWT tabanlı kimlik doğrulama, rol bazlı yetkilendirme ve `Bcrypt` ile güvenli şifreleme.
 - **⚡️ Performans ve Önbellekleme (Caching):** **Redis** ile sık erişilen veriler için gelişmiş önbellekleme stratejisi.
 - **🛒 Gelişmiş Sepet Yönetimi:** Anonim ve kayıtlı kullanıcılar için akıllı sepet birleştirme (cart merging).
 - **🔄 Asenkron ve Uçtan Uca Sipariş Yaşam Döngüsü:** **Apache Kafka** ile dayanıklı (resilient) ve ölçeklenebilir asenkron sipariş işleme.
-- **📦 Yönetim Paneli ve Operasyonlar:** Merkezi sipariş, iade ve platform yönetimi.
 
 ### ✨ Kod Kalitesi ve Test Stratejisi
 
@@ -56,7 +59,7 @@ Projemiz, en başından itibaren "production-ready" hedefiyle geliştirilmiştir
 - **SonarQube Analizi:** Kod tabanımız, **SonarQube** ile sürekli olarak analiz edilmektedir. Bu analizler sonucunda:
   - **Sıfır Kritik Hata:** Projede `Medium` veya `High` seviyesinde hiçbir problem bulunmamaktadır.
   - **Güvenlik Zafiyeti Yok:** Bilinen hiçbir güvenlik açığı (vulnerability) veya güvenlik riski (severity) tespit edilmemiştir.
-- **Yüksek Test Kapsamı:** Projemiz, **%90'ın üzerinde birim test (unit test) kapsamına** sahiptir. Bu, iş mantığının büyük bir bölümünün güvenilir ve beklendiği gibi çalıştığını garanti eder. Testler, JUnit 5 ve Mockito kullanılarak yazılmıştır.
+- **Yüksek Test Kapsamı:** Projemiz, **%90'ın üzerinde birim test (unit test) kapsamına** sahiptir.
 
 ### 🛠 Kullanılan Teknolojiler
 
@@ -72,8 +75,8 @@ Projemiz, en başından itibaren "production-ready" hedefiyle geliştirilmiştir
 
 - **Olay Güdümlü Akışlar (Kafka):** Sipariş yönetimi gibi kritik süreçler, Kafka kullanılarak asenkron olarak yönetilir. Veri tutarlılığını en üst düzeye çıkarmak için **Idempotent Producer** ve **`acks=all`** konfigürasyonları kullanılmıştır.
 - **Önbellekleme Stratejisi (Redis):** Sık okunan veriler için `10 dakikalık` bir `time-to-live` (TTL) ile Redis önbelleklemesi uygulanmıştır.
-- **Veritabanı Sürümleme (Liquibase):** Veritabanı şema değişiklikleri, kod tabanının bir parçası olarak yönetilir, bu da ortamlar arası tutarlılık sağlar.
-- **Dağıtık Gözlem (Distributed Tracing):** Micrometer ve **Zipkin** entegrasyonu, mikroservis ortamlarında isteklerin izlenmesini ve performans darboğazlarının tespit edilmesini sağlar.
+- **Veritabanı Sürümleme (Liquibase):** Veritabanı şema değişiklikleri, kod tabanının bir parçası olarak yönetilir.
+- **Dağıtık Gözlem (Distributed Tracing):** Micrometer ve **Zipkin** entegrasyonu, mikroservis ortamlarında isteklerin izlenmesini sağlar.
 
 ### ⚙️ Kurulum ve Çalıştırma
 
@@ -83,43 +86,22 @@ Projemiz, en başından itibaren "production-ready" hedefiyle geliştirilmiştir
 - Docker ve Docker Compose
 
 #### 2. Yapılandırma (Configuration)
-Uygulama, `application.properties` dosyasındaki değerleri ve ortam değişkenlerini kullanır. Projeyi çalıştırmadan önce aşağıdaki ortam değişkenlerini oluşturmanız gerekebilir:
-
-- `DB_USER`: Veritabanı kullanıcı adı (varsayılan: `postgres`).
-- `DB_PASSWORD`: Veritabanı şifresi.
-- `JWT_SECRET_KEY`: JWT imzalamak için kullanılacak gizli anahtar.
-- `SONAR_TOKEN`: SonarQube analizi için gerekli olan token.
+Projeyi çalıştırmadan önce aşağıdaki ortam değişkenlerini oluşturmanız gerekebilir:
+- `DB_USER`, `DB_PASSWORD`, `JWT_SECRET_KEY`, `SONAR_TOKEN`
 
 #### 3. Çalıştırma Adımları
-1. **Projeyi klonlayın:**
-   ```bash
-   git clone https://github.com/ahmetcalik/ecommerce-backend.git
-   cd ecommerce-backend
-   ```
-2. **Gerekli servisleri Docker ile başlatın:**
-   ```bash
-   docker-compose up -d
-   ```
-3. **Veritabanını Başlangıç Verileriyle Doldurun (Opsiyonel):**
-   Projeyi anlamlı verilerle hızlıca test etmek için, `database/initial_data.sql` script'ini PostgreSQL veritabanınızda çalıştırabilirsiniz. Bu, size test edebileceğiniz hazır ürünler, kategoriler ve kullanıcılar sunar.
-
-4. **Uygulamayı Maven ile derleyin ve çalıştırın:**
-   ```bash
-   mvn clean install
-   mvn spring-boot:run
-   ```
-   Uygulama varsayılan olarak `8080` portunda çalışmaya başlayacaktır.
+1. **Projeyi klonlayın:** `git clone https://github.com/ahmetcalik/ecommerce-backend.git`
+2. **Gerekli servisleri Docker ile başlatın:** `docker-compose up -d`
+3. **Veritabanını Başlangıç Verileriyle Doldurun (Opsiyonel):** `database/initial_data.sql` script'ini veritabanınızda çalıştırın.
+4. **Uygulamayı derleyin ve çalıştırın:** `mvn clean install && mvn spring-boot:run`
 
 ### 📚 API Dokümantasyonu ve Test
 
-Bu projenin API'ını keşfetmek ve test etmek için iki farklı yol sunulmuştur:
-
 #### 1. Swagger UI (Otomatik Dokümantasyon)
-Uygulama çalıştırıldıktan sonra, tüm endpoint'leri, modelleri ve deneme imkanını sunan interaktif Swagger UI arayüzüne aşağıdaki adresten erişebilirsiniz:
+Uygulama çalıştıktan sonra, interaktif Swagger UI arayüzüne buradan erişebilirsiniz:
 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 #### 2. Postman Koleksiyonu (Kullanıma Hazır Test Seti)
-Tüm API isteklerini, örnek gövdeleri (body) ve ortam değişkenlerini içeren kullanıma hazır bir Postman koleksiyonu projeye dahil edilmiştir.
-
+Tüm API isteklerini içeren kullanıma hazır bir Postman koleksiyonu projeye dahil edilmiştir.
 - **Dosya:** `postman/ecommerce-collection.json`
-- **Kullanım:** Postman uygulamasında `Import` butonuna tıklayarak bu dosyayı içeri aktarın. Koleksiyon, tüm endpoint'leri sizin için hazır hale getirecektir.
+- **Kullanım:** Postman uygulamasında `Import` butonuna tıklayarak bu dosyayı içeri aktarın.
