@@ -8,7 +8,7 @@
 ![SonarQube Coverage](https://img.shields.io/badge/coverage-90%25+-brightgreen)
 ![SonarQube Quality Gate](https://img.shields.io/badge/quality%20gate-passed-green)
 
-Bu proje, modern ve ölçeklenebilir bir e-ticaret platformu için geliştirilmiş, uçtan uca (end-to-end) ve "production-ready" prensipleriyle hazırlanmış bir backend sistemidir. Yaygın ve kendini kanıtlamış teknolojiler kullanılarak, yüksek kod kalitesi, güvenlik ve test edilebilirlik hedeflenmiştir.
+Bu proje, modern ve ölçeklenebilir bir e-ticaret platformu için geliştirilmiş, uçtan uca (end-to-end) ve "production-ready" prensipleriyle hazırlanmış bir backend sistemidir.
 
 ---
 
@@ -100,14 +100,26 @@ Uygulama, `application.properties` dosyasındaki değerleri ve ortam değişkenl
    ```bash
    docker-compose up -d
    ```
-3. **Uygulamayı Maven ile derleyin ve çalıştırın:**
+3. **Veritabanını Başlangıç Verileriyle Doldurun (Opsiyonel):**
+   Projeyi anlamlı verilerle hızlıca test etmek için, `database/initial_data.sql` script'ini PostgreSQL veritabanınızda çalıştırabilirsiniz. Bu, size test edebileceğiniz hazır ürünler, kategoriler ve kullanıcılar sunar.
+
+4. **Uygulamayı Maven ile derleyin ve çalıştırın:**
    ```bash
    mvn clean install
    mvn spring-boot:run
    ```
    Uygulama varsayılan olarak `8080` portunda çalışmaya başlayacaktır.
 
-### 📚 API Dokümantasyonu
+### 📚 API Dokümantasyonu ve Test
 
-Uygulama çalıştırıldıktan sonra, interaktif Swagger UI arayüzüne aşağıdaki adresten erişebilirsiniz:
+Bu projenin API'ını keşfetmek ve test etmek için iki farklı yol sunulmuştur:
+
+#### 1. Swagger UI (Otomatik Dokümantasyon)
+Uygulama çalıştırıldıktan sonra, tüm endpoint'leri, modelleri ve deneme imkanını sunan interaktif Swagger UI arayüzüne aşağıdaki adresten erişebilirsiniz:
 [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+#### 2. Postman Koleksiyonu (Kullanıma Hazır Test Seti)
+Tüm API isteklerini, örnek gövdeleri (body) ve ortam değişkenlerini içeren kullanıma hazır bir Postman koleksiyonu projeye dahil edilmiştir.
+
+- **Dosya:** `postman/ecommerce-collection.json`
+- **Kullanım:** Postman uygulamasında `Import` butonuna tıklayarak bu dosyayı içeri aktarın. Koleksiyon, tüm endpoint'leri sizin için hazır hale getirecektir.

@@ -1,0 +1,2090 @@
+{
+  "info": {
+    "_postman_id": "bce4e3e7-0c61-4e82-b61c-a49ca1ec334d",
+    "name": "E-Ticaret API Projesi",
+    "description": "Bu koleksiyon, Spring Boot ile geliştirilen E-Ticaret backend projesinin tüm API endpoint'lerini içerir.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33211498"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Yeni Kullanıcı Kaydet (POST - Herkese Açık)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"contactName\": \"Satıcı Kullanıcısı\",\n    \"emailAddress\": \"seller@example.com\",\n    \"password\": \"sellerpassword12345\",\n    \"phoneNumber\": \"5551231231\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Sisteme yeni bir standart kullanıcı (ROLE_USER) kaydeder ve token döndürür."
+          },
+          "response": []
+        },
+        {
+          "name": "Kullanıcı Olarak Giriş Yap (POST - Herkese Açık)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.accessToken) {",
+                  "    pm.collectionVariables.set(\"user_token\", jsonData.data.accessToken);",
+                  "    console.log(\"User token set.\");",
+                  "}",
+                  "if (jsonData && jsonData.data && jsonData.data.refreshToken) {",
+                  "    pm.collectionVariables.set(\"user_refresh_token\", jsonData.data.refreshToken);",
+                  "    console.log(\"User refresh token set.\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"userpassword12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Standart kullanıcı (user@example.com) olarak sisteme giriş yapar ve token alır."
+          },
+          "response": []
+        },
+        {
+          "name": "Satıcı Olarak Giriş Yap (POST - Herkese Açık)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.accessToken) {",
+                  "    pm.collectionVariables.set(\"seller_token\", jsonData.data.accessToken);",
+                  "    console.log(\"Seller token set.\");",
+                  "}",
+                  "if (jsonData && jsonData.data && jsonData.data.refreshToken) {",
+                  "    pm.collectionVariables.set(\"seller_refresh_token\", jsonData.data.refreshToken);",
+                  "    console.log(\"Seller refresh token set.\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"seller@example.com\",\n    \"password\": \"sellerpassword12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Standart kullanıcı (user@example.com) olarak sisteme giriş yapar ve token alır."
+          },
+          "response": []
+        },
+        {
+          "name": "Çıkış Yap (POST - Herkese Açık)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.accessToken) {",
+                  "    pm.collectionVariables.set(\"user_token\", jsonData.data.accessToken);",
+                  "    console.log(\"User token set.\");",
+                  "}",
+                  "if (jsonData && jsonData.data && jsonData.data.refreshToken) {",
+                  "    pm.collectionVariables.set(\"user_refresh_token\", jsonData.data.refreshToken);",
+                  "    console.log(\"User refresh token set.\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Standart kullanıcı (user@example.com) olarak sisteme giriş yapar ve token alır."
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Olarak Giriş Yap (POST - Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.accessToken) {",
+                  "    pm.collectionVariables.set(\"admin_token\", jsonData.data.accessToken);",
+                  "    console.log(\"Admin token set.\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"adminpassword12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Admin kullanıcısı (admin@example.com) olarak sisteme giriş yapar ve token alır."
+          },
+          "response": []
+        },
+        {
+          "name": "Token Yenile (Refresh Token)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"refreshToken\": \"{{user_refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/refresh-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh-token"
+              ]
+            },
+            "description": "Login işleminden dönen 'refreshToken'ı kullanarak yeni bir 'accessToken' alır."
+          },
+          "response": []
+        }
+      ],
+      "description": "Kullanıcı kaydı, girişi ve token yenileme işlemleri."
+    },
+    {
+      "name": "Admin Yönetimi",
+      "item": [
+        {
+          "name": "Kullanıcıya Rol Ver (PUT - Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/users/6/grant-role/SELLER",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "users",
+                "6",
+                "grant-role",
+                "SELLER"
+              ]
+            },
+            "description": "ID'si 1 olan (user@example.com) kullanıcıya ADMIN rolü verir. Sadece admin token ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Kullanıcıdan Rol Al (PUT - Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/users/3/revoke-role/SELLER",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "users",
+                "3",
+                "revoke-role",
+                "SELLER"
+              ]
+            },
+            "description": "ID'si 1 olan kullanıcıdan ADMIN rolünü geri alır. Sadece admin token ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Kullanıcıyı Sil (DELETE - Admin(Soft Delete))",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "admin",
+                "users",
+                "1"
+              ]
+            },
+            "description": "ID'si 1 olan kullanıcıyı pasif hale getirir. Sadece admin token ile çalışır."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ürünler (Products)",
+      "item": [
+        {
+          "name": "Ürünleri Listele (GET - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "tr",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products?page=1&sort=name&pageSize=100&sortDir=ASC",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "sort",
+                  "value": "name"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "100"
+                },
+                {
+                  "key": "sortDir",
+                  "value": "ASC"
+                },
+                {
+                  "key": "categoryId",
+                  "value": "4",
+                  "disabled": true
+                },
+                {
+                  "key": "supplierId",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "nameSearch",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ürün Detayı Getir (GET - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "tr",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "30"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Yeni Ürün Ekle (POST - Admin Gerekli)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Yep yeni Üst Düzey Oyuncu Dizüstü Bilgisayarı 2026 v3\",\n  \"description\": \"Yep yeni 27-inç 240Hz ekran, 64GB RAM ve en yeni nesil ekran kartı ile profesyonel oyuncular için tasarlandı.\",\n  \"supplierId\": 1,\n  \"categoryIds\": [\n    4,\n    11,\n    19\n  ],\n  \"items\": [\n    {\n      \"sku\": \"DESKTOP-GAMER-PRO3-BLK-26\",\n      \"quantityInStock\": 25,\n      \"unitPrice\": 78500.00,\n      \"colourId\": 4,\n      \"sizeId\": 5\n    },\n    {\n      \"sku\": \"DESKTOP-GAMER-PRO3-WHT-26\",\n      \"quantityInStock\": 15,\n      \"unitPrice\": 79000.00,\n      \"colourId\": 5,\n      \"sizeId\": 5\n    }\n  ],\n  \"images\": [\n    {\n      \"imageUrl\": \"https://cdn.example.com/images/laptop-gamer-pro-main.jpg\",\n      \"isMainImage\": true\n    },\n    {\n      \"imageUrl\": \"https://cdn.example.com/images/laptop-gamer-pro-side.jpg\",\n      \"isMainImage\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ürünü Güncelle (PUT - Admin Gerekli)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Yep yeni Üst Düzey Oyuncu Dizüstü Bilgisayarı 2026 v4\",\n    \"description\": \"GÜNCELLENMİŞ AÇIKLAMA - Yep yeni 27-inç 240Hz ekran, 64GB RAM ve en yeni nesil ekran kartı ile profesyonel oyuncular için tasarlandı.\",\n    \"supplierId\": 1,\n    \"categoryIds\": [\n        4,\n        11,\n        19\n    ],\n    \"items\": [\n        {\n            \"sku\": \"DESKTOP-GAMER-PRO3-BLK-26\",\n            \"quantityInStock\": 20,\n            \"unitPrice\": 78550.00,\n            \"colourId\": 4,\n            \"sizeId\": 5\n        },\n        {\n            \"sku\": \"DESKTOP-GAMER-PRO3-WHT-26\",\n            \"quantityInStock\": 10,\n            \"unitPrice\": 79050.00,\n            \"colourId\": 5,\n            \"sizeId\": 5\n        }\n    ],\n    \"images\": [\n        {\n            \"imageUrl\": \"https://cdn.example.com/images/laptop-gamer-pro-main-updated.jpg\",\n            \"isMainImage\": true\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/40",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "40"
+              ]
+            },
+            "description": "ID'si 27 olan ürünü günceller. Sadece admin token ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Ürünü Sil (DELETE - Admin Gerekli)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/products/31",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "31"
+              ]
+            },
+            "description": "ID'si 27 olan ürünü pasif hale getirir (soft delete). Sadece admin token ile çalışır."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Kategoriler (Categories)",
+      "item": [
+        {
+          "name": "Kategorileri Ağaç Olarak Getir (GET - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories/getAllAsTree",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "getAllAsTree"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Kategorileri Listele (GET - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories?page=1&pageSize=100&sort=name&sortDir=ASC",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "100"
+                },
+                {
+                  "key": "sort",
+                  "value": "name"
+                },
+                {
+                  "key": "sortDir",
+                  "value": "ASC"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Kategori Detayı Getir (GET - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories/9",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Yeni Kategori Ekle (POST - Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Yeni Test Kategorisi2\",\n    \"description\": \"Bu bir test kategorisidir.\",\n    \"parentCategoryId\": null,\n    \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Kategoriyi Güncelle (PUT - Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 30,\n    \"name\": \"Test Aksesuarları(Güncel)\",\n    \"description\": \"Güncellenmiş test aksesuarları kategorisi.\",\n    \"parentCategoryId\": 5,\n    \"isActive\": true\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            },
+            "description": "ID'si 25 olan kategoriyi günceller. Sadece admin token ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Kategoriyi Sil (DELETE - Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/categories/30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "30"
+              ]
+            },
+            "description": "ID'si 25 olan kategoriyi siler (soft delete). Sadece admin token ile çalışır."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Alışveriş Sepeti (Shopping Cart)",
+      "item": [
+        {
+          "name": "Sepetimi Görüntüle (GET - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cart"
+              ]
+            },
+            "description": "Giriş yapmış kullanıcının sepetini getirir. User veya Admin token'ı ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Sepete Ürün Ekle (POST - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"productItemId\": 1, \n    \"quantity\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cart/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cart",
+                "items"
+              ]
+            },
+            "description": "ID'si 1 olan ürün varyantından sepete 2 adet ekler. User veya Admin token'ı ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Sepetteki Ürün Adedini Güncelle (PUT - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quantity\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cart/items/11",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cart",
+                "items",
+                "11"
+              ]
+            },
+            "description": "ID'si 1 olan sepet satırındaki ürünün adedini 5 yapar. User veya Admin token'ı ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Sepetten Ürün Sil (DELETE - Herkese Açık)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cart/items/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cart",
+                "items",
+                "1"
+              ]
+            },
+            "description": "ID'si 1 olan sepet satırını sepetten kaldırır. User veya Admin token'ı ile çalışır."
+          },
+          "response": []
+        },
+        {
+          "name": "Sepeti Temizle (DELETE - Herkese Açık)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cart"
+              ]
+            },
+            "description": "Giriş yapmış kullanıcının sepetindeki tüm ürünleri temizler. User veya Admin token'ı ile çalışır."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Adres Yönetimi (Address Management)",
+      "item": [
+        {
+          "name": "Yeni Adres Ekle (POST - Admin & User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Bu script, başarılı bir şekilde adres eklendiğinde dönen cevaptaki ID'yi alır",
+                  "// ve collection değişkenine kaydeder. Böylece Güncelleme ve Silme istekleri",
+                  "// bu ID'yi otomatik olarak kullanabilir.",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"created_address_id\", jsonData.data.id);",
+                  "    console.log(\"Yeni adres ID'si kaydedildi: \" + jsonData.data.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Ana Gönderi Adresim\",\n    \"addressLine1\": \"123 Test Sokak\",\n    \"addressLine2\": \"Daire 1\",\n    \"city\": \"İstanbul\",\n    \"postalCode\": \"34000\",\n    \"countryId\": 10,\n    \"isShippingAddress\": true,\n    \"isBillingAddress\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/addresses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "addresses"
+              ]
+            },
+            "description": "Giriş yapmış kullanıcı için yeni bir adres oluşturur. Başarılı olursa, dönen cevaptaki `id` otomatik olarak `created_address_id` değişkenine atanır."
+          },
+          "response": []
+        },
+        {
+          "name": "Adresi Sil (DELETE - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/addresses/{{created_address_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "addresses",
+                "{{created_address_id}}"
+              ]
+            },
+            "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+          },
+          "response": []
+        },
+        {
+          "name": "Mevcut Adresi Güncelle (PUT - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Varsayılan Ev Adresim İstanbul\",\n    \"addressLine1\": \"İstanbul Test Caddesi 33. Sokak\",\n    \"addressLine2\": \"Daire 6\",\n    \"city\": \"İstanbul\",\n    \"postalCode\": \"34640\",\n    \"countryId\": \"10\",\n    \"isShippingAddress\": true,\n    \"isBillingAddress\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/addresses/{{created_address_id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "addresses",
+                "{{created_address_id}}"
+              ]
+            },
+            "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi günceller."
+          },
+          "response": []
+        },
+        {
+          "name": "Adresleri Listele (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/addresses??page=1&pageSize=20&sortBy=id&sortDir=ASC",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "addresses"
+              ],
+              "query": [
+                {
+                  "key": "?page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "20"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "id"
+                },
+                {
+                  "key": "sortDir",
+                  "value": "ASC"
+                }
+              ]
+            },
+            "description": "O anki token'a sahip kullanıcının tüm adreslerini listeler."
+          },
+          "response": []
+        },
+        {
+          "name": "Adres Detayı Listele (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/addresses/16",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "addresses",
+                "16"
+              ]
+            },
+            "description": "O anki token'a sahip kullanıcının tüm adreslerini listeler."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ödeme Yönetimi (Payment Management)",
+      "item": [
+        {
+          "name": "Yeni Ödeme Yöntemi Ekle (POST - Admin & User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Bu script, başarılı bir şekilde adres eklendiğinde dönen cevaptaki ID'yi alır",
+                  "// ve collection değişkenine kaydeder. Böylece Güncelleme ve Silme istekleri",
+                  "// bu ID'yi otomatik olarak kullanabilir.",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"created_address_id\", jsonData.data.id);",
+                  "    console.log(\"Yeni adres ID'si kaydedildi: \" + jsonData.data.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardHolderName\": \"Beyza Gündoğan\",\n    \"cardNumber\": \"4242424242424242\",\n    \"expiryMonth\": 12,\n    \"expiryYear\": 2030,\n    \"cvc\": \"123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payment-methods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "payment-methods"
+              ]
+            },
+            "description": "Giriş yapmış kullanıcı için yeni bir adres oluşturur. Başarılı olursa, dönen cevaptaki `id` otomatik olarak `created_address_id` değişkenine atanır."
+          },
+          "response": []
+        },
+        {
+          "name": "Ödeme Yöntemi Sil (DELETE - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payment-methods/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "payment-methods",
+                "5"
+              ]
+            },
+            "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+          },
+          "response": []
+        },
+        {
+          "name": "Mevcut Ödeme Yöntemi Güncelle (PUT - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardHolderName\": \"Tarık Akın\",\n    \"expiryMonth\": 10,\n    \"expiryYear\": 2027\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payment-methods/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "payment-methods",
+                "1"
+              ]
+            },
+            "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi günceller."
+          },
+          "response": []
+        },
+        {
+          "name": "Ödeme Yöntemlerini Listele (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payment-methods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "payment-methods"
+              ]
+            },
+            "description": "O anki token'a sahip kullanıcının tüm adreslerini listeler."
+          },
+          "response": []
+        },
+        {
+          "name": "Ödeme Yöntemi Detayı Listele (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/payment-methods/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "payment-methods",
+                "1"
+              ]
+            },
+            "description": "O anki token'a sahip kullanıcının tüm adreslerini listeler."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Taksit Seçenekleri Yönetimi (InstallmentsManagement)",
+      "item": [
+        {
+          "name": "Taksit Tutarı Hesaplama (POST - Admin & User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Bu script, başarılı bir şekilde adres eklendiğinde dönen cevaptaki ID'yi alır",
+                  "// ve collection değişkenine kaydeder. Böylece Güncelleme ve Silme istekleri",
+                  "// bu ID'yi otomatik olarak kullanabilir.",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"created_address_id\", jsonData.data.id);",
+                  "    console.log(\"Yeni adres ID'si kaydedildi: \" + jsonData.data.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"binNumber\": \"424242\",\n    \"amount\": 3600.00 \n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/installments/options",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "installments",
+                "options"
+              ]
+            },
+            "description": "Giriş yapmış kullanıcı için yeni bir adres oluşturur. Başarılı olursa, dönen cevaptaki `id` otomatik olarak `created_address_id` değişkenine atanır."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sipariş Yönetimi (Order Management)",
+      "item": [
+        {
+          "name": "Admin-Seller Sipariş Yönetimi (Admin-Seller Order Management)",
+          "item": [
+            {
+              "name": "Sipariş Kargolama (POST - Admin",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Bu script, başarılı bir şekilde adres eklendiğinde dönen cevaptaki ID'yi alır",
+                      "// ve collection değişkenine kaydeder. Böylece Güncelleme ve Silme istekleri",
+                      "// bu ID'yi otomatik olarak kullanabilir.",
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData && jsonData.data && jsonData.data.id) {",
+                      "    pm.collectionVariables.set(\"created_address_id\", jsonData.data.id);",
+                      "    console.log(\"Yeni adres ID'si kaydedildi: \" + jsonData.data.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{seller_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"trackingNumber\": \"KARGO0041\",\n    \"carrierId\": 1 \n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/admin/orders/41/ship",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    "41",
+                    "ship"
+                  ]
+                },
+                "description": "Giriş yapmış kullanıcı için yeni bir adres oluşturur. Başarılı olursa, dönen cevaptaki `id` otomatik olarak `created_address_id` değişkenine atanır."
+              },
+              "response": []
+            },
+            {
+              "name": "Sipariş Kargo Teslim (POST - Admin)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Bu script, başarılı bir şekilde adres eklendiğinde dönen cevaptaki ID'yi alır",
+                      "// ve collection değişkenine kaydeder. Böylece Güncelleme ve Silme istekleri",
+                      "// bu ID'yi otomatik olarak kullanabilir.",
+                      "var jsonData = pm.response.json();",
+                      "if (jsonData && jsonData.data && jsonData.data.id) {",
+                      "    pm.collectionVariables.set(\"created_address_id\", jsonData.data.id);",
+                      "    console.log(\"Yeni adres ID'si kaydedildi: \" + jsonData.data.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{seller_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/admin/orders/41/deliver",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "orders",
+                    "41",
+                    "deliver"
+                  ]
+                },
+                "description": "Giriş yapmış kullanıcı için yeni bir adres oluşturur. Başarılı olursa, dönen cevaptaki `id` otomatik olarak `created_address_id` değişkenine atanır."
+              },
+              "response": []
+            },
+            {
+              "name": "Sipariş Sil (DELETE - Admin & User)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{admin_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/orders/21/cancel",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "orders",
+                    "21",
+                    "cancel"
+                  ]
+                },
+                "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Sipariş İptali (POST - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "tr",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders/34/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "34",
+                "cancel"
+              ]
+            },
+            "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+          },
+          "response": []
+        },
+        {
+          "name": "Yeni Sipariş Ekle (POST - Admin & User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Bu script, başarılı bir şekilde adres eklendiğinde dönen cevaptaki ID'yi alır",
+                  "// ve collection değişkenine kaydeder. Böylece Güncelleme ve Silme istekleri",
+                  "// bu ID'yi otomatik olarak kullanabilir.",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"created_address_id\", jsonData.data.id);",
+                  "    console.log(\"Yeni adres ID'si kaydedildi: \" + jsonData.data.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customerId\": 3,\n    \"shippingAddressId\": 16,\n    \"shippingMethodId\": 4,\n    \"paymentMethodId\": 1,\n    \"installmentCount\": 6,\n    \"expectedTotalAmount\": 4165.00 \n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ]
+            },
+            "description": "Giriş yapmış kullanıcı için yeni bir adres oluşturur. Başarılı olursa, dönen cevaptaki `id` otomatik olarak `created_address_id` değişkenine atanır."
+          },
+          "response": []
+        },
+        {
+          "name": "Siparişleri Listele (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders?sortBy=id&sortDir=DESC&pageSize=200",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "id"
+                },
+                {
+                  "key": "sortDir",
+                  "value": "DESC"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "200"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sipariş Detayı Getir (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders/40",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "40"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "İade Yönetimi (Return Management)",
+      "item": [
+        {
+          "name": "Admin İade Yönetimi (Return Management)",
+          "item": [
+            {
+              "name": "Admin Sipariş İade Talebi Durumu Güncelleme (POST - Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{seller_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept-Language",
+                    "value": "tr",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \r\n    //\"newStatus\": \"APPROVED\"\r\n    //\"newStatus\": \"COMPLETED\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/admin/returns/7/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "returns",
+                    "7",
+                    "status"
+                  ]
+                },
+                "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+              },
+              "response": []
+            },
+            {
+              "name": "Admin Sipariş İade Talebi Detayı Görüntüleme (GET - Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{seller_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept-Language",
+                    "value": "tr",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/admin/returns/7",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "returns",
+                    "7"
+                  ]
+                },
+                "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+              },
+              "response": []
+            },
+            {
+              "name": "Admin Sipariş İade Talepleri Listele (GET - Admin)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{seller_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept-Language",
+                    "value": "tr",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/admin/returns?page=1&pageSize=20&sortBy=orderId&sortDir=DESC",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "admin",
+                    "returns"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "orderId"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "DESC"
+                    }
+                  ]
+                },
+                "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Sipariş İade Talebi (POST - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "tr",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"orderId\": 40,\r\n    \"orderItemId\": 58,\r\n    \"reason\": \"DEFECTIVE_PRODUCT\",\r\n    \"customReason\": \"screen is broken\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/returns",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "returns"
+              ]
+            },
+            "description": "Daha önce oluşturulan adresin ID'sini (`created_address_id`) kullanarak o adresi siler."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Fatura Yönetimi (Invoice Management)",
+      "item": [
+        {
+          "name": "Faturaları Listele (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/invoices?sortBy=id&sortDir=DESC",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "invoices"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "id"
+                },
+                {
+                  "key": "sortDir",
+                  "value": "DESC"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fatura Detayı Görüntüleme (GET - Admin & User)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{user_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/invoices/25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "invoices",
+                "25"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{admin_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "user_token",
+      "value": ""
+    },
+    {
+      "key": "admin_token",
+      "value": ""
+    },
+    {
+      "key": "user_refresh_token",
+      "value": ""
+    },
+    {
+      "key": "created_address_id",
+      "value": ""
+    },
+    {
+      "key": "seller_token",
+      "value": ""
+    },
+    {
+      "key": "seller_refresh_token",
+      "value": ""
+    }
+  ]
+}
