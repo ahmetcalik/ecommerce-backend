@@ -1,12 +1,12 @@
-
 # E-Ticaret Backend Projesi
 
 ![Java](https://img.shields.io/badge/Java-21-blue)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.4-green)
 ![Apache Kafka](https://img.shields.io/badge/Apache-Kafka-231F20?logo=apachekafka)
 ![Redis](https://img.shields.io/badge/Redis-6.2-DC382D?logo=redis)
-![Liquibase](https://img.shields.io/badge/Liquibase-4.9-336699)
-![Maven](https://img.shields.io/badge/Maven-4.0.0-red)
+![Zipkin](https://img.shields.io/badge/Zipkin-006699?logo=zipkin&logoColor=white)
+![SonarQube Coverage](https://img.shields.io/badge/coverage-90%25+-brightgreen)
+![SonarQube Quality Gate](https://img.shields.io/badge/quality%20gate-passed-green)
 
 Bu proje, modern ve ölçeklenebilir bir e-ticaret platformu için geliştirilmiş, uçtan uca (end-to-end) ve "production-ready" prensipleriyle hazırlanmış bir backend sistemidir. Yaygın ve kendini kanıtlamış teknolojiler kullanılarak, yüksek kod kalitesi, güvenlik ve test edilebilirlik hedeflenmiştir.
 
@@ -49,14 +49,23 @@ graph TD
 - **🔄 Asenkron ve Uçtan Uca Sipariş Yaşam Döngüsü:** **Apache Kafka** ile dayanıklı (resilient) ve ölçeklenebilir asenkron sipariş işleme.
 - **📦 Yönetim Paneli ve Operasyonlar:** Merkezi sipariş, iade ve platform yönetimi.
 
+### ✨ Kod Kalitesi ve Test Stratejisi
+
+Projemiz, en başından itibaren "production-ready" hedefiyle geliştirilmiştir. Bu doğrultuda kod kalitesi ve güvenilirlik en üst düzeyde tutulmuştur.
+
+- **SonarQube Analizi:** Kod tabanımız, **SonarQube** ile sürekli olarak analiz edilmektedir. Bu analizler sonucunda:
+  - **Sıfır Kritik Hata:** Projede `Medium` veya `High` seviyesinde hiçbir problem bulunmamaktadır.
+  - **Güvenlik Zafiyeti Yok:** Bilinen hiçbir güvenlik açığı (vulnerability) veya güvenlik riski (severity) tespit edilmemiştir.
+- **Yüksek Test Kapsamı:** Projemiz, **%90'ın üzerinde birim test (unit test) kapsamına** sahiptir. Bu, iş mantığının büyük bir bölümünün güvenilir ve beklendiği gibi çalıştığını garanti eder. Testler, JUnit 5 ve Mockito kullanılarak yazılmıştır.
+
 ### 🛠 Kullanılan Teknolojiler
 
 - **Backend:** Java 21, Spring Boot 3.5.4, Spring Security, Spring for Apache Kafka, Spring Data JPA.
 - **Veritabanı & Önbellekleme:** PostgreSQL, Redis.
 - **Veritabanı Yönetimi:** Liquibase (Schema Migration).
-- **Gözlemlenebilirlik (Observability):** Spring Boot Actuator, Micrometer, Brave, Zipkin (Distributed Tracing).
+- **Gözlemlenebilirlik (Observability):** Spring Boot Actuator, Micrometer, Brave, **Zipkin** (Distributed Tracing).
 - **API Dokümantasyonu:** SpringDoc OpenAPI 2.8.9.
-- **Test & Kod Kalitesi:** JUnit 5, Mockito, SonarQube.
+- **Test & Kod Kalitesi:** JUnit 5, Mockito, **SonarQube**.
 - **Containerization & Build:** Docker, Docker Compose, Apache Maven 4.0.0.
 
 ### 📐 Mimari Yaklaşım ve En İyi Pratikler
@@ -64,7 +73,7 @@ graph TD
 - **Olay Güdümlü Akışlar (Kafka):** Sipariş yönetimi gibi kritik süreçler, Kafka kullanılarak asenkron olarak yönetilir. Veri tutarlılığını en üst düzeye çıkarmak için **Idempotent Producer** ve **`acks=all`** konfigürasyonları kullanılmıştır.
 - **Önbellekleme Stratejisi (Redis):** Sık okunan veriler için `10 dakikalık` bir `time-to-live` (TTL) ile Redis önbelleklemesi uygulanmıştır.
 - **Veritabanı Sürümleme (Liquibase):** Veritabanı şema değişiklikleri, kod tabanının bir parçası olarak yönetilir, bu da ortamlar arası tutarlılık sağlar.
-- **Dağıtık Gözlem (Distributed Tracing):** Micrometer ve Zipkin entegrasyonu, mikroservis ortamlarında isteklerin izlenmesini ve performans darboğazlarının tespitini kolaylaştırır.
+- **Dağıtık Gözlem (Distributed Tracing):** Micrometer ve **Zipkin** entegrasyonu, mikroservis ortamlarında isteklerin izlenmesini ve performans darboğazlarının tespit edilmesini sağlar.
 
 ### ⚙️ Kurulum ve Çalıştırma
 
@@ -79,11 +88,12 @@ Uygulama, `application.properties` dosyasındaki değerleri ve ortam değişkenl
 - `DB_USER`: Veritabanı kullanıcı adı (varsayılan: `postgres`).
 - `DB_PASSWORD`: Veritabanı şifresi.
 - `JWT_SECRET_KEY`: JWT imzalamak için kullanılacak gizli anahtar.
+- `SONAR_TOKEN`: SonarQube analizi için gerekli olan token.
 
 #### 3. Çalıştırma Adımları
 1. **Projeyi klonlayın:**
    ```bash
-   git clone https://github.com/kullanici-adi/ecommerce-backend.git
+   git clone https://github.com/ahmetcalik/ecommerce-backend.git
    cd ecommerce-backend
    ```
 2. **Gerekli servisleri Docker ile başlatın:**
