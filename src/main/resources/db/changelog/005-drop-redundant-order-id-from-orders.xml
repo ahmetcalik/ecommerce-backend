@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="12" author="Ahmet_Calik">
+        <comment>Drop redundant order_id column from the orders table to align with standard JPA one-to-one mapping</comment>
+        <dropColumn tableName="orders" columnName="order_id"/>
+    </changeSet>
+
+</databaseChangeLog>

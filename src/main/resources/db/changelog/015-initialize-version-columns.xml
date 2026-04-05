@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="system">
+        <comment>Initialize null version columns to 0 for optimistic locking</comment>
+        <sql>
+            UPDATE public.address SET version = 0 WHERE version IS NULL;
+            UPDATE public.carrier SET version = 0 WHERE version IS NULL;
+            UPDATE public.category SET version = 0 WHERE version IS NULL;
+            UPDATE public.colour SET version = 0 WHERE version IS NULL;
+            UPDATE public.country SET version = 0 WHERE version IS NULL;
+            UPDATE public.customer SET version = 0 WHERE version IS NULL;
+            UPDATE public.customer_address SET version = 0 WHERE version IS NULL;
+            UPDATE public.customer_review SET version = 0 WHERE version IS NULL;
+            UPDATE public.installment_option SET version = 0 WHERE version IS NULL;
+            UPDATE public.invoice SET version = 0 WHERE version IS NULL;
+            UPDATE public.order_item SET version = 0 WHERE version IS NULL;
+            UPDATE public.order_status SET version = 0 WHERE version IS NULL;
+            UPDATE public.order_tracking SET version = 0 WHERE version IS NULL;
+            UPDATE public.orders SET version = 0 WHERE version IS NULL;
+            UPDATE public.payment_method SET version = 0 WHERE version IS NULL;
+            UPDATE public.payment_type SET version = 0 WHERE version IS NULL;
+            UPDATE public.product SET version = 0 WHERE version IS NULL;
+            UPDATE public.product_category SET version = 0 WHERE version IS NULL;
+            UPDATE public.product_image SET version = 0 WHERE version IS NULL;
+            UPDATE public.product_item SET version = 0 WHERE version IS NULL;
+            UPDATE public.return_request SET version = 0 WHERE version IS NULL;
+            UPDATE public.shipping_method SET version = 0 WHERE version IS NULL;
+            UPDATE public.shopping_cart SET version = 0 WHERE version IS NULL;
+            UPDATE public.shopping_cart_item SET version = 0 WHERE version IS NULL;
+            UPDATE public.size SET version = 0 WHERE version IS NULL;
+            UPDATE public.subscription SET version = 0 WHERE version IS NULL;
+            UPDATE public.supplier SET version = 0 WHERE version IS NULL;
+            UPDATE public.supplier_response SET version = 0 WHERE version IS NULL;
+        </sql>
+        <rollback>
+            <comment>Rollback is not supported for this changeset as it corrects a data state.</comment>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

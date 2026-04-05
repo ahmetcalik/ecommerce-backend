@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="7" author="Ahmet_Calik">
+        <comment>Clean up existing data in payment_method for safe refactoring</comment>
+        <delete tableName="payment_method"/>
+    </changeSet>
+
+    <changeSet id="8" author="Ahmet_Calik">
+        <comment>Drop old insecure columns from payment_method table</comment>
+        <dropColumn tableName="payment_method" columnName="account_number"/>
+        <dropColumn tableName="payment_method" columnName="provider"/>
+        <dropColumn tableName="payment_method" columnName="expiry_date"/>
+    </changeSet>
+
+    <changeSet id="9" author="Ahmet_Calik">
+        <comment>Add new secure columns to payment_method table</comment>
+        <addColumn tableName="payment_method">
+            <column name="card_holder_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_four_digits" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_family" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_month" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_year" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_token" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

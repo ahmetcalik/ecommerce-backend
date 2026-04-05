@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="22" author="Ahmet_Calik">
+        <comment>Update order_status table to use Enum string values</comment>
+        <update tableName="order_status">
+            <column name="status_name" value="PREPARING"/>
+            <where>status_name = 'Hazırlanıyor'</where>
+        </update>
+        <update tableName="order_status">
+            <column name="status_name" value="SHIPPED"/>
+            <where>status_name = 'Kargoda'</where>
+        </update>
+        <update tableName="order_status">
+            <column name="status_name" value="DELIVERED"/>
+            <where>status_name = 'Teslim Edildi'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="23" author="Ahmet_Calik">
+        <comment>Update payment_type table to use Enum string values</comment>
+        <update tableName="payment_type">
+            <column name="type_name" value="CREDIT_CARD"/>
+            <where>type_name = 'Kredi Kartı'</where>
+        </update>
+        <update tableName="payment_type">
+            <column name="type_name" value="BANK_TRANSFER"/>
+            <where>type_name = 'Havale'</where>
+        </update>
+    </changeSet>
+
+<!--    Bu kısım eklenirken unutuldu. 012 liquibase scriptinden sonra eklendiği için id si 24 değilde 25 oldu.-->
+    <changeSet id="25" author="Ahmet_Calik">
+        <comment>Update order_status table for CANCELLED enum value</comment>
+        <update tableName="order_status">
+            <column name="status_name" value="CANCELLED"/>
+            <where>status_name = 'İptal Edildi'</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

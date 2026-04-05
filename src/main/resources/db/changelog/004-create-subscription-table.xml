@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="10" author="Ahmet_Calik">
+        <comment>Create subscription table to manage recurring payments</comment>
+        <createTable tableName="subscription">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="cdate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="cuser" type="BIGINT"/>
+            <column name="udate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="uuser" type="BIGINT"/>
+            <column name="version" type="BIGINT"/>
+
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_subscription_customer" references="customer(id)"/>
+            </column>
+            <column name="payment_method_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_subscription_payment_method" references="payment_method(id)"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="next_billing_date" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="end_date" type="TIMESTAMP WITH TIME ZONE"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

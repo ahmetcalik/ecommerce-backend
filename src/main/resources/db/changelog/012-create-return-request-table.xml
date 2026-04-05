@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="24" author="Ahmet_Calik">
+        <comment>Create return_request table for managing customer returns</comment>
+        <createTable tableName="return_request">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_return_request_order" references="orders(id)"/>
+            </column>
+            <column name="order_item_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_return_request_order_item" references="order_item(id)"/>
+            </column>
+
+            <column name="reason" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="custom_reason" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="cdate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="cuser" type="BIGINT"/>
+            <column name="udate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="uuser" type="BIGINT"/>
+            <column name="version" type="BIGINT"/>
+        </createTable>
+
+        <createIndex indexName="idx_return_request_order_id" tableName="return_request">
+            <column name="order_id"/>
+        </createIndex>
+        <createIndex indexName="idx_return_request_order_item_id" tableName="return_request">
+            <column name="order_item_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="001-add-vat-rate-to-product.xml" relativeToChangelogFile="true"/>
+    <include file="002-add-title-to-address.xml" relativeToChangelogFile="true"/>
+    <include file="003-refactor-payment-method-table.xml" relativeToChangelogFile="true"/>
+    <include file="004-create-subscription-table.xml" relativeToChangelogFile="true"/>
+    <include file="005-drop-redundant-order-id-from-orders.xml" relativeToChangelogFile="true"/>
+    <include file="006-create-carrier-table.xml" relativeToChangelogFile="true"/>
+    <include file="007-create-order-tracking-table.xml" relativeToChangelogFile="true"/>
+    <include file="008-add-shipping-fee-to-invoice.xml" relativeToChangelogFile="true"/>
+    <include file="009-backfill-shipping-fee-on-invoices.xml" relativeToChangelogFile="true"/>
+    <include file="010-add-interest-amount-to-invoice.xml" relativeToChangelogFile="true"/>
+    <include file="011-migrate-statuses-to-enum-types.xml" relativeToChangelogFile="true"/>
+    <include file="012-create-return-request-table.xml" relativeToChangelogFile="true"/>
+    <include file="013-add-seller-role.xml" relativeToChangelogFile="true"/>
+    <include file="014-add-admin-user.xml" relativeToChangelogFile="true"/>
+    <include file="015-initialize-version-columns.xml" relativeToChangelogFile="true"/>
+    <include file="017-reassign-products-to-admin.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

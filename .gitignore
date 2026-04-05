@@ -1,0 +1,12 @@
+    # Build artifacts
+    /target/
+
+    # IDE files
+    .idea/
+    *.iml
+
+    # Log files
+    *.log
+
+    # Maven files
+    .mvn/

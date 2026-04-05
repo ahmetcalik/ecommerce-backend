@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="15" author="Ahmet_Calik">
+        <comment>Add shipping_fee column to the invoice table (nullable for now)</comment>
+        <addColumn tableName="invoice">
+            <column name="shipping_fee" type="NUMERIC(10, 2)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="16" author="Ahmet_Calik">
+        <comment>Set a default value for shipping_fee on existing invoices</comment>
+        <update tableName="invoice">
+            <column name="shipping_fee" value="0.00"/>
+            <where>shipping_fee IS NULL</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="17" author="Ahmet_Calik">
+        <comment>Add not-null constraint to shipping_fee column in invoice table</comment>
+        <addNotNullConstraint
+                tableName="invoice"
+                columnName="shipping_fee"
+                columnDataType="NUMERIC(10, 2)"/>
+    </changeSet>
+</databaseChangeLog>

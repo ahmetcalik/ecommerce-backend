@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Ahmet_Calik">
+        <comment>Adding vat_rate column to product table</comment>
+        <addColumn tableName="product">
+            <column name="vat_rate" type="NUMERIC(4, 2)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2" author="Ahmet_Calik">
+        <comment>Set a default vat_rate for existing products</comment>
+        <update tableName="product">
+            <column name="vat_rate" value="0.20"/>
+            <where>vat_rate IS NULL</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="3" author="Ahmet_Calik">
+        <comment>Add not-null constraint to vat_rate column</comment>
+        <addNotNullConstraint
+                tableName="product"
+                columnName="vat_rate"
+                columnDataType="NUMERIC(4, 2)"/>
+    </changeSet>
+
+</databaseChangeLog>

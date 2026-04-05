@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="28" author="system">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(cr.customer_id) FROM customer_role cr
+                JOIN role r ON cr.role_id = r.id
+                WHERE r.name = 'ROLE_ADMIN'
+            </sqlCheck>
+        </preConditions>
+        <comment>Adds default admin user only if no admin role users exist.</comment>
+        <insert tableName="customer">
+            <column name="id" valueNumeric="100"/>
+            <column name="contact_name" value="Admin Kullanıcı"/>
+            <column name="email_address" value="admin@example.com"/>
+            <column name="phone_number" value="5550000002"/>
+            <column name="password_hash" value="$2a$10$WqB1D/qO7DTRj4w35Fm6nOTnQvUf6NqR.K0U1uA.R/N2/L/jNQKkO"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="customer_role">
+            <column name="customer_id" valueNumeric="100"/>
+            <column name="role_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="customer_role">
+            <column name="customer_id" valueNumeric="100"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

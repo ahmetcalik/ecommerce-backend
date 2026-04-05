@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="13" author="Ahmet_Calik">
+        <comment>Create carrier table to store shipping companies</comment>
+        <createTable tableName="carrier">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="cdate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="cuser" type="BIGINT"/>
+            <column name="udate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="uuser" type="BIGINT"/>
+            <column name="version" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="4" author="Ahmet_Calik">
+        <comment>Adding title column to address table (nullable for now)</comment>
+        <addColumn tableName="address">
+            <column name="title" type="VARCHAR(100)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5" author="Ahmet_Calik">
+        <comment>Set a default title for existing addresses</comment>
+        <update tableName="address">
+            <column name="title" value="Varsayılan Adres"/>
+            <where>title IS NULL</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="6" author="Ahmet_Calik">
+        <comment>Add not-null constraint to title column in address table</comment>
+        <addNotNullConstraint
+                tableName="address"
+                columnName="title"
+                columnDataType="VARCHAR(100)"/>
+    </changeSet>
+
+</databaseChangeLog>

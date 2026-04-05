@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="18" author="Ahmet_Calik">
+        <comment>Backfill the shipping_fee on existing invoices based on the associated order's shipping method</comment>
+        <sql>
+            UPDATE public.invoice i
+            SET shipping_fee = sm.shipping_price
+            FROM public.orders o
+            JOIN public.shipping_method sm ON o.shipping_method_id = sm.id
+            WHERE i.order_id = o.id AND (i.shipping_fee IS NULL OR i.shipping_fee = 0.00);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

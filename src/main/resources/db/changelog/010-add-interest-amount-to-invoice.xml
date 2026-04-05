@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="19" author="Ahmet_Calik">
+        <comment>Add interest_amount column to the invoice table (nullable for now)</comment>
+        <addColumn tableName="invoice">
+            <column name="interest_amount" type="NUMERIC(10, 2)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20" author="Ahmet_Calik">
+        <comment>Backfill interest_amount for existing invoices</comment>
+        <sql>
+            UPDATE public.invoice
+            SET interest_amount = grand_total - (sub_total + vat_amount + shipping_fee)
+            WHERE interest_amount IS NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="21" author="Ahmet_Calik">
+        <comment>Add not-null constraint to interest_amount column in invoice table</comment>
+        <addNotNullConstraint
+                tableName="invoice"
+                columnName="interest_amount"
+                columnDataType="NUMERIC(10, 2)"/>
+    </changeSet>
+</databaseChangeLog>

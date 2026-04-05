@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="26" author="Ahmet_Calik">
+        <comment>Adds the new ROLE_SELLER to the role table.</comment>
+        <insert tableName="role">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="ROLE_SELLER"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="27" author="Ahmet_Calik">
+        <comment>Assigns ROLE_SELLER (ID 3) to the default test user (Customer ID 3) for testing purposes.</comment>
+        <insert tableName="customer_role">
+            <column name="customer_id" valueNumeric="3"/>
+            <column name="role_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

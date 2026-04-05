@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="sourceModelValue" value="ecommerce-backend:entityManagerFactory" />
+    <option name="targetDbValue" value="5164c96c-16ec-4426-94a5-cd656e81bb3a" />
+  </component>
+</project>
